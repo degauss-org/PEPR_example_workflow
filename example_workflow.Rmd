@@ -34,7 +34,7 @@ The input file must be a CSV file with a column containing an address string. Ot
 An example input CSV file (called `my_address_file.csv`) might look like:
 
 ```{r}
-my_adds_geo <- read_csv("./pepr_test/my_address_file_geocoded.csv")
+my_adds_geo <- read_csv("./example_data/my_address_file_geocoded.csv")
 
 sample_ids <- c("11200020024", "54000600136", "13100070229")
 my_adds_geo <- filter(my_adds_geo, id %in% sample_ids)
@@ -92,7 +92,7 @@ The **output file** is written to the same directory and in our example, will be
 Example output:
 
 ```{r}
-dist_road <- read_csv("./pepr_test/my_address_file_geocoded_disttomajorroadway.csv") %>% 
+dist_road <- read_csv("./example_data/my_address_file_geocoded_disttomajorroadway.csv") %>% 
     filter(id %in% sample_ids)
 
 dist_road%>% 
@@ -107,7 +107,7 @@ dist_road%>%
 Example call: 
 
 ```
-docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime/pepr_drivetime:0.3 my_address_file_geocoded_disttomajorroadway.csv cchmc
+docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.4 my_address_file_geocoded_disttomajorroadway.csv cchmc
 ```
 
 Replace `my_address_file_geocoded_disttomajorroadway.csv` with the name of the CSV file created in Step 3, and replace `cchmc` with the abbrevation for your care center (see [list](https://github.com/cole-brokamp/PEPR_drivetime)) and run.
@@ -117,7 +117,7 @@ The **output file** is written to the same directory and in our example, will be
 Example output:
 
 ```{r}
-drivetime <- read_csv("./PEPR_drivetime/my_address_file_geocoded_pepr_drivetime_cchmc.csv") %>% 
+drivetime <- read_csv("./example_data/my_address_file_geocoded_pepr_drivetime_cchmc.csv") %>% 
   filter(id %in% sample_ids) %>% 
   select(id, drive_time, distance)
 
@@ -146,7 +146,7 @@ The **output file** is written to the same directory and in our example, will be
 Example output:
 
 ```{r}
-greenspace <- read_csv("./PEPR_greenspace/my_address_file_geocoded_pepr_greenspace.csv") %>% 
+greenspace <- read_csv("./example_data/my_address_file_geocoded_pepr_greenspace.csv") %>% 
   filter(id %in% sample_ids) %>% 
   select(id, evi_500:evi_2500)
 
