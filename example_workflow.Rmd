@@ -29,7 +29,7 @@ See the [Installing Docker](https://github.com/cole-brokamp/DeGAUSS/wiki/Install
 
 # Step 1: Preparing Your Input File
 
-The input file must be a CSV file with a column containing an address string. Other columns may be present and will be returned in the output file, but should be kept to a minimum to reduce file size.
+The input file must be a CSV file with a column called `address` containing an address string. Other columns may be present and will be returned in the output file, but should be kept to a minimum to reduce file size.
 
 An example input CSV file (called `my_address_file.csv`) might look like:
 
@@ -61,9 +61,12 @@ Example call:
 docker run --rm=TRUE -v "$PWD":/tmp degauss/cchmc_batch_geocoder my_address_file.csv
 ```
 
-Replace `my_address_file.csv` with the name of the CSV file to be geocoded and run the call in the shell.
+Replace `my_address_file.csv` with the name of the CSV file to be geocoded and run the call in the shell. 
 
-**Note for Windows Users:** In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`.
+<br>
+
+> <font size="3.5"> **_Notes for Windows Users:_** </font> <br> <br> <font size="2.75"> In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`. <br> <br> <img style="float: right;" width=50% src="images/windows_docker_settings.PNG"> Further, if running the DeGAUSS container returns the  error `Error in fifo(tempfile(), open = "w+b", blocking = T) :` `cannot open the connection. Execution halted`, go to **Docker settings** and force the container to use only a single thread by setting CPUs to 1. <br> <br> Refer to the DeGAUSS [Windows Troubleshooting](https://github.com/cole-brokamp/DeGAUSS/wiki/Microsoft-Windows-Problems-and-Workarounds#parallel-computing-on-windows) page for more information. </font> <br> <br> <br> <br> <br> <br>
+
 
 The **output file** is written to the same directory and in our example, will be called `my_address_file_geocoded.csv`.
 
@@ -110,7 +113,29 @@ Example call:
 docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.4 my_address_file_geocoded_disttomajorroadway.csv cchmc
 ```
 
-Replace `my_address_file_geocoded_disttomajorroadway.csv` with the name of the CSV file created in Step 3, and replace `cchmc` with the abbrevation for your care center (see [list](https://github.com/cole-brokamp/PEPR_drivetime)) and run.
+Replace `my_address_file_geocoded_disttomajorroadway.csv` with the name of the CSV file created in Step 3, and replace `cchmc` with the abbrevation for your care center from this list:
+
+| **Name** |  **Abbreviation** |
+|--------------------|-------------------|
+Children's Hospital of Philadelphia | `chop` 
+Riley Hospital for Children, Indiana University | `riley`
+Seattle Children's Hospital | `seattle`
+Children's Mercy Hospital | `mercy`
+Emory University | `emory`
+Johns Hopkins University | `jhu`
+Cleveland Clinic | `cc`
+Levine Children's | `levine`
+St. Louis Children's Hospital | `stl`
+Oregon Health and Science University | `ohsu`
+University of Michigan Health System | `umich`
+Children's Hospital of Alabama | `al`
+Cincinnati Children's Hospital Medical Center | `cchmc`
+Nationwide Children's Hospital | `nat`
+University of California, Los Angeles | `ucla`
+Boston Children's Hospital | `bch`
+Medical College of Wisconsin | `mcw`
+St. Jude's Children's Hospital | `stj`
+Martha Eliot Health Center | `mehc`
 
 The **output file** is written to the same directory and in our example, will be called `my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc.csv`.
 
@@ -162,6 +187,10 @@ greenspace %>%
 
 # Step 6: Crime
 
+**_Note that this step is currently not possible. Updates coming soon._**
+
+<font color="gray">
+
 Example call: 
 
 ```
@@ -174,4 +203,21 @@ The **output file** is written to the same directory and in our example, will be
 
 Example output:
 
+*coming soon*
+
+</font>
+
+# Step 7: Removing PHI
+
+Before sharing your data, remove the following columns:
+
++ `address`
++ `bad_address`
++ `PO`
++ `score`
++ `precison`
++ `precise_geocode`
++ `lat`
++ `lon`
++ `fips_tract_id`
 
