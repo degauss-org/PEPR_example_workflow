@@ -10,6 +10,7 @@
 
 
 
+<meta name="date" content="2019-08-05" />
 
 <title>Example Workflow for PEPR DeGAUSS Containers</title>
 
@@ -383,7 +384,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Example Workflow for PEPR DeGAUSS Containers</h1>
-<h4 class="date">7/25/2019</h4>
+<h4 class="date">August 05, 2019</h4>
 
 </div>
 
@@ -923,7 +924,7 @@ TRUE
 <div id="step-4-drive-time-and-distance-to-care-center" class="section level1">
 <h1>Step 4: Drive Time and Distance to Care Center</h1>
 <p>Example call:</p>
-<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_drivetime:0.4 my_address_file_geocoded_disttomajorroadway.csv cchmc</code></pre>
+<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_drivetime:0.5 my_address_file_geocoded_disttomajorroadway.csv cchmc</code></pre>
 <p>Replace <code>my_address_file_geocoded_disttomajorroadway.csv</code> with the name of the CSV file created in Step 3, and replace <code>cchmc</code> with the abbrevation for your care center from this list:</p>
 <table>
 <thead>
@@ -1008,6 +1009,30 @@ TRUE
 <tr class="odd">
 <td>Martha Eliot Health Center</td>
 <td><code>mehc</code></td>
+</tr>
+<tr class="even">
+<td>Ann &amp; Lurie Children’s / Northwestern</td>
+<td><code>nwu</code></td>
+</tr>
+<tr class="odd">
+<td>Lurie Children’s Center in Northbrook</td>
+<td><code>lccn</code></td>
+</tr>
+<tr class="even">
+<td>Lurie Children’s Center in Lincoln Park</td>
+<td><code>lcclp</code></td>
+</tr>
+<tr class="odd">
+<td>Lurie Children’s Center in Uptown</td>
+<td><code>lccu</code></td>
+</tr>
+<tr class="even">
+<td>Dr. Lio’s and Dr. Aggarwal’s Clinics</td>
+<td><code>lac</code></td>
+</tr>
+<tr class="odd">
+<td>Recruited from Eczema Expo 2018</td>
+<td><code>expo</code></td>
 </tr>
 </tbody>
 </table>

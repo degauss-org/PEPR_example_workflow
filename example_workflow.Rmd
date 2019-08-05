@@ -1,6 +1,6 @@
 ---
 title: "Example Workflow for PEPR DeGAUSS Containers"
-date: "7/25/2019"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output: html_document
 ---
 
