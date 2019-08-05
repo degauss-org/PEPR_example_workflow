@@ -110,7 +110,7 @@ dist_road%>%
 Example call: 
 
 ```
-docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.4 my_address_file_geocoded_disttomajorroadway.csv cchmc
+docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.5 my_address_file_geocoded_disttomajorroadway.csv cchmc
 ```
 
 Replace `my_address_file_geocoded_disttomajorroadway.csv` with the name of the CSV file created in Step 3, and replace `cchmc` with the abbrevation for your care center from this list:
@@ -136,6 +136,12 @@ Boston Children's Hospital | `bch`
 Medical College of Wisconsin | `mcw`
 St. Jude's Children's Hospital | `stj`
 Martha Eliot Health Center | `mehc`
+Ann & Lurie Children's / Northwestern | `nwu`
+Lurie Children's Center in Northbrook | `lccn`
+Lurie Children's Center in Lincoln Park | `lcclp`
+Lurie Children's Center in Uptown | `lccu`
+Dr. Lio's and Dr. Aggarwal's Clinics | `lac`
+Recruited from Eczema Expo 2018 | `expo`
 
 The **output file** is written to the same directory and in our example, will be called `my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc.csv`.
 
