@@ -218,11 +218,6 @@ Example output:
 Before sharing your data, remove the following columns:
 
 + `address`
-+ `bad_address`
-+ `PO`
-+ `score`
-+ `precison`
-+ `precise_geocode`
 + `lat`
 + `lon`
 + `fips_tract_id`
