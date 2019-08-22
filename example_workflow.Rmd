@@ -18,7 +18,7 @@ library(kableExtra)
 
 This is an example of the workflow a PEPR study site might use to add geomarkers to their data with [DeGAUSS](https://github.com/cole-brokamp/DeGAUSS). 
 
-In steps 2 through 5: 
+In steps 2 through 6: 
 
 + A DeGAUSS container is used to add geomarker(s) to the input file (columns added in each step are highlighted in gray).
 + The input file is the CSV created in the previous step, and the output file will be the input in the next step.
@@ -26,6 +26,8 @@ In steps 2 through 5:
 # Step 0: Install Docker
 
 See the [Installing Docker](https://github.com/cole-brokamp/DeGAUSS/wiki/Installing-Docker) wiki.
+
+ > <font size="3.5"> **_Note about Docker Settings:_** </font> <br> <font size="2.75"> Before running any containers, go to **Docker Settings > Advanced** and change **memory** to greater than 4000 MB (or 4 GiB) <br> <center> <img width=50% src="images/docker_settings_memory.PNG"> </center> <br> If you are using Windows, additionally, set **CPUs** to 1. <br> <center> <img width=50% src="images/docker_settings_cpu.png"> </center> </font>
 
 # Step 1: Preparing Your Input File
 
@@ -65,7 +67,7 @@ Replace `my_address_file.csv` with the name of the CSV file to be geocoded and r
 
 <br>
 
-> <font size="3.5"> **_Notes for Windows Users:_** </font> <br> <br> <font size="2.75"> In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`. <br> <br> <img style="float: right;" width=50% src="images/windows_docker_settings.PNG"> Further, if running the DeGAUSS container returns the  error `Error in fifo(tempfile(), open = "w+b", blocking = T) :` `cannot open the connection. Execution halted`, go to **Docker settings** and force the container to use only a single thread by setting CPUs to 1. <br> <br> Refer to the DeGAUSS [Windows Troubleshooting](https://github.com/cole-brokamp/DeGAUSS/wiki/Microsoft-Windows-Problems-and-Workarounds#parallel-computing-on-windows) page for more information. </font> <br> <br> <br> <br> <br> <br>
+> **_Note for Windows Users:_** <br> In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`. Refer to the DeGAUSS [Windows Troubleshooting](https://github.com/cole-brokamp/DeGAUSS/wiki/Microsoft-Windows-Problems-and-Workarounds#parallel-computing-on-windows) page for more information.
 
 
 The **output file** is written to the same directory and in our example, will be called `my_address_file_geocoded.csv`.
@@ -193,14 +195,10 @@ greenspace %>%
 
 # Step 6: Crime
 
-**_Note that this step is currently not possible. Updates coming soon._**
-
-<font color="gray">
-
 Example call: 
 
 ```
-docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime/pepr_crime:0.1 my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv
+docker run --rm -v "$PWD":/tmp degauss/pepr_crime:0.1 my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv
 ```
 
 Replace `my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv` with the name of the CSV file created in Step 5 and run.
@@ -209,9 +207,20 @@ The **output file** is written to the same directory and in our example, will be
 
 Example output:
 
-*coming soon*
+```{r}
+crime <- read_csv("./example_data/my_address_file_geocoded_pepr_crime.csv") %>% 
+  filter(id %in% sample_ids) %>% 
+  select(id, fips_block_group_id:motor_vehicle_theft)
 
-</font>
+crime <- greenspace %>% 
+  right_join(crime, by="id")
+
+crime %>% 
+  kable() %>% 
+  kable_styling(full_width = FALSE, bootstrap_options = "striped") %>% 
+  column_spec(24:34, bold = T, color = "white", background = "gray", include_thead = TRUE) %>% 
+  scroll_box(width = "900px", height = "300px")
+```
 
 # Step 7: Removing PHI
 
@@ -221,4 +230,4 @@ Before sharing your data, remove the following columns:
 + `lat`
 + `lon`
 + `fips_tract_id`
-
++ `fips_block_group_id`
