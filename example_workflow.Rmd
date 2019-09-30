@@ -112,7 +112,7 @@ dist_road%>%
 Example call: 
 
 ```
-docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.5 my_address_file_geocoded_disttomajorroadway.csv cchmc
+docker run --rm -v "$PWD":/tmp degauss/pepr_drivetime:0.6 my_address_file_geocoded_disttomajorroadway.csv cchmc
 ```
 
 Replace `my_address_file_geocoded_disttomajorroadway.csv` with the name of the CSV file created in Step 3, and replace `cchmc` with the abbrevation for your care center from this list:
