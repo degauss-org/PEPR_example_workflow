@@ -7,10 +7,11 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
-<meta name="date" content="2019-09-30" />
+<meta name="date" content="2019-11-06" />
 
 <title>Example Workflow for PEPR DeGAUSS Containers</title>
 
@@ -278,7 +279,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -352,18 +352,6 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
@@ -384,7 +372,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Example Workflow for PEPR DeGAUSS Containers</h1>
-<h4 class="date">September 30, 2019</h4>
+<h4 class="date">November 06, 2019</h4>
 
 </div>
 
@@ -692,12 +680,16 @@ TRUE
 </table>
 </div>
 </div>
-<div id="step-3-distance-to-major-roadway" class="section level1">
-<h1>Step 3: Distance to Major Roadway</h1>
+<div id="step-3-roadways" class="section level1">
+<h1>Step 3: Roadways</h1>
+<blockquote>
+<p><font size="3"> <strong><em>Note:</em></strong> Prior to November 2019, this step involved running a different container called “Distance to Major Roadway”. The old version added one new geomarker column, but this version adds 4 new columns. The new column called “dist_to_1100” should be very similar to the “dist_to_major_road” column produced by the old version. </font></p>
+</blockquote>
 <p>Example call:</p>
-<pre><code>docker run --rm=TRUE -v &quot;$PWD&quot;:/tmp degauss/dist_to_major_roadway my_address_file_geocoded.csv</code></pre>
+<pre><code>docker run --rm=TRUE -v &quot;$PWD&quot;:/tmp degauss/pepr_roadways:0.2 my_address_file_geocoded.csv</code></pre>
 <p>Replace <code>my_address_file_geocoded.csv</code> with the name of the geocoded CSV file created in Step 2 and run.</p>
-<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_disttomajorroadway.csv</code>.</p>
+<p><strong><em>Note:</em></strong> This container could take longer than what users may be used to with other DeGAUSS containers due to the large size of the S1200 roadways shapefile. For example, using Docker to run this container for 193 geocoded addresses took 20-30 minutes on an HP laptop running Windows 10.</p>
+<p>The <strong>output file</strong> is written to the same directory and, in our example, will be called <code>my_address_file_geocoded_pepr_roads_300m_buffer.csv</code>.</p>
 <p>Example output:</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:900px; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -714,6 +706,12 @@ bad_address
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 PO
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lat
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lon
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 score
@@ -749,13 +747,16 @@ fraction_vacant_housing
 dep_index
 </th>
 <th style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;position: sticky; top:0; background-color: #FFFFFF;">
-dist_to_major_road
+dist_to_1100
 </th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lon
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;position: sticky; top:0; background-color: #FFFFFF;">
+dist_to_1200
 </th>
-<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lat
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;position: sticky; top:0; background-color: #FFFFFF;">
+length_1100
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;position: sticky; top:0; background-color: #FFFFFF;">
+length_1200
 </th>
 </tr>
 </thead>
@@ -772,6 +773,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.17112
+</td>
+<td style="text-align:right;">
+-84.46176
 </td>
 <td style="text-align:right;">
 0.922
@@ -807,13 +814,16 @@ TRUE
 0.3831315
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
-2272.085
+502.7043
 </td>
-<td style="text-align:right;">
--84.46176
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+534.7928
 </td>
-<td style="text-align:right;">
-39.17112
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
 </td>
 </tr>
 <tr>
@@ -828,6 +838,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.11552
+</td>
+<td style="text-align:right;">
+-84.61902
 </td>
 <td style="text-align:right;">
 0.754
@@ -863,13 +879,16 @@ TRUE
 0.2327838
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
-5793.140
+5793.1403
 </td>
-<td style="text-align:right;">
--84.61902
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+1654.7255
 </td>
-<td style="text-align:right;">
-39.11552
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
 </td>
 </tr>
 <tr>
@@ -884,6 +903,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.15321
+</td>
+<td style="text-align:right;">
+-84.49236
 </td>
 <td style="text-align:right;">
 0.922
@@ -919,13 +944,16 @@ TRUE
 0.5905153
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
-1453.015
+1453.0147
 </td>
-<td style="text-align:right;">
--84.49236
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+548.5412
 </td>
-<td style="text-align:right;">
-39.15321
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
+0
 </td>
 </tr>
 </tbody>
@@ -935,8 +963,8 @@ TRUE
 <div id="step-4-drive-time-and-distance-to-care-center" class="section level1">
 <h1>Step 4: Drive Time and Distance to Care Center</h1>
 <p>Example call:</p>
-<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_drivetime:0.6 my_address_file_geocoded_disttomajorroadway.csv cchmc</code></pre>
-<p>Replace <code>my_address_file_geocoded_disttomajorroadway.csv</code> with the name of the CSV file created in Step 3, and replace <code>cchmc</code> with the abbrevation for your care center from this list:</p>
+<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_drivetime:0.6 my_address_file_geocoded_pepr_roads_300m_buffer.csv cchmc</code></pre>
+<p>Replace <code>my_address_file_geocoded_pepr_roads_300m_buffer.csv</code> with the name of the CSV file created in Step 3, and replace <code>cchmc</code> with the abbrevation for your care center from this list:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1047,7 +1075,7 @@ TRUE
 </tr>
 </tbody>
 </table>
-<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc.csv</code>.</p>
+<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc.csv</code>.</p>
 <p>Example output:</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:900px; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1064,6 +1092,12 @@ bad_address
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 PO
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lat
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lon
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 score
@@ -1099,13 +1133,16 @@ fraction_vacant_housing
 dep_index
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dist_to_major_road
+dist_to_1100
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lon
+dist_to_1200
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lat
+length_1100
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+length_1200
 </th>
 <th style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;position: sticky; top:0; background-color: #FFFFFF;">
 drive_time
@@ -1128,6 +1165,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.17112
+</td>
+<td style="text-align:right;">
+-84.46176
 </td>
 <td style="text-align:right;">
 0.922
@@ -1163,13 +1206,16 @@ TRUE
 0.3831315
 </td>
 <td style="text-align:right;">
-2272.085
+502.7043
 </td>
 <td style="text-align:right;">
--84.46176
+534.7928
 </td>
 <td style="text-align:right;">
-39.17112
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
 18
@@ -1190,6 +1236,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.11552
+</td>
+<td style="text-align:right;">
+-84.61902
 </td>
 <td style="text-align:right;">
 0.754
@@ -1225,13 +1277,16 @@ TRUE
 0.2327838
 </td>
 <td style="text-align:right;">
-5793.140
+5793.1403
 </td>
 <td style="text-align:right;">
--84.61902
+1654.7255
 </td>
 <td style="text-align:right;">
-39.11552
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
 24
@@ -1252,6 +1307,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.15321
+</td>
+<td style="text-align:right;">
+-84.49236
 </td>
 <td style="text-align:right;">
 0.922
@@ -1287,13 +1348,16 @@ TRUE
 0.5905153
 </td>
 <td style="text-align:right;">
-1453.015
+1453.0147
 </td>
 <td style="text-align:right;">
--84.49236
+548.5412
 </td>
 <td style="text-align:right;">
-39.15321
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;font-weight: bold;color: white !important;background-color: gray !important;">
 6
@@ -1309,9 +1373,9 @@ TRUE
 <div id="step-5-greenspace" class="section level1">
 <h1>Step 5: Greenspace</h1>
 <p>Example call:</p>
-<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_greenspace:0.1 my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc.csv</code></pre>
-<p>Replace <code>my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc.csv</code> with the name of the CSV file created in Step 4 and run.</p>
-<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv</code>.</p>
+<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_greenspace:0.1 my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc.csv</code></pre>
+<p>Replace <code>my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc.csv</code> with the name of the CSV file created in Step 4 and run.</p>
+<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc_pepr_greenspace.csv</code>.</p>
 <p>Example output:</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:900px; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1328,6 +1392,12 @@ bad_address
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 PO
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lat
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lon
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 score
@@ -1363,13 +1433,16 @@ fraction_vacant_housing
 dep_index
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dist_to_major_road
+dist_to_1100
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lon
+dist_to_1200
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lat
+length_1100
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+length_1200
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 drive_time
@@ -1403,6 +1476,12 @@ FALSE
 FALSE
 </td>
 <td style="text-align:right;">
+39.17112
+</td>
+<td style="text-align:right;">
+-84.46176
+</td>
+<td style="text-align:right;">
 0.922
 </td>
 <td style="text-align:left;">
@@ -1436,13 +1515,16 @@ TRUE
 0.3831315
 </td>
 <td style="text-align:right;">
-2272.085
+502.7043
 </td>
 <td style="text-align:right;">
--84.46176
+534.7928
 </td>
 <td style="text-align:right;">
-39.17112
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 18
@@ -1472,6 +1554,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.11552
+</td>
+<td style="text-align:right;">
+-84.61902
 </td>
 <td style="text-align:right;">
 0.754
@@ -1507,13 +1595,16 @@ TRUE
 0.2327838
 </td>
 <td style="text-align:right;">
-5793.140
+5793.1403
 </td>
 <td style="text-align:right;">
--84.61902
+1654.7255
 </td>
 <td style="text-align:right;">
-39.11552
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 24
@@ -1543,6 +1634,12 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+<td style="text-align:right;">
+39.15321
+</td>
+<td style="text-align:right;">
+-84.49236
 </td>
 <td style="text-align:right;">
 0.922
@@ -1578,13 +1675,16 @@ TRUE
 0.5905153
 </td>
 <td style="text-align:right;">
-1453.015
+1453.0147
 </td>
 <td style="text-align:right;">
--84.49236
+548.5412
 </td>
 <td style="text-align:right;">
-39.15321
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 6
@@ -1609,9 +1709,9 @@ TRUE
 <div id="step-6-crime" class="section level1">
 <h1>Step 6: Crime</h1>
 <p>Example call:</p>
-<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_crime:0.1 my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv</code></pre>
-<p>Replace <code>my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace.csv</code> with the name of the CSV file created in Step 5 and run.</p>
-<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_disttomajorroadway_pepr_drivetime_cchmc_pepr_greenspace_pepr_crime.csv</code>.</p>
+<pre><code>docker run --rm -v &quot;$PWD&quot;:/tmp degauss/pepr_crime:0.1 my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc_pepr_greenspace.csv</code></pre>
+<p>Replace <code>my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc_pepr_greenspace.csv</code> with the name of the CSV file created in Step 5 and run.</p>
+<p>The <strong>output file</strong> is written to the same directory and in our example, will be called <code>my_address_file_geocoded_pepr_roads_300m_buffer_pepr_drivetime_cchmc_pepr_greenspace_pepr_crime.csv</code>.</p>
 <p>Example output:</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:900px; ">
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1628,6 +1728,12 @@ bad_address
 </th>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 PO
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lat
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+lon
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 score
@@ -1663,13 +1769,16 @@ fraction_vacant_housing
 dep_index
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-dist_to_major_road
+dist_to_1100
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lon
+dist_to_1200
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
-lat
+length_1100
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+length_1200
 </th>
 <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 drive_time
@@ -1736,6 +1845,12 @@ FALSE
 FALSE
 </td>
 <td style="text-align:right;">
+39.17112
+</td>
+<td style="text-align:right;">
+-84.46176
+</td>
+<td style="text-align:right;">
 0.922
 </td>
 <td style="text-align:left;">
@@ -1769,13 +1884,16 @@ TRUE
 0.3831315
 </td>
 <td style="text-align:right;">
-2272.085
+502.7043
 </td>
 <td style="text-align:right;">
--84.46176
+534.7928
 </td>
 <td style="text-align:right;">
-39.17112
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 18
@@ -1840,6 +1958,12 @@ FALSE
 FALSE
 </td>
 <td style="text-align:right;">
+39.11552
+</td>
+<td style="text-align:right;">
+-84.61902
+</td>
+<td style="text-align:right;">
 0.754
 </td>
 <td style="text-align:left;">
@@ -1873,13 +1997,16 @@ TRUE
 0.2327838
 </td>
 <td style="text-align:right;">
-5793.140
+5793.1403
 </td>
 <td style="text-align:right;">
--84.61902
+1654.7255
 </td>
 <td style="text-align:right;">
-39.11552
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 24
@@ -1944,6 +2071,12 @@ FALSE
 FALSE
 </td>
 <td style="text-align:right;">
+39.15321
+</td>
+<td style="text-align:right;">
+-84.49236
+</td>
+<td style="text-align:right;">
 0.922
 </td>
 <td style="text-align:left;">
@@ -1977,13 +2110,16 @@ TRUE
 0.5905153
 </td>
 <td style="text-align:right;">
-1453.015
+1453.0147
 </td>
 <td style="text-align:right;">
--84.49236
+548.5412
 </td>
 <td style="text-align:right;">
-39.15321
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:right;">
 6
@@ -2067,6 +2203,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
