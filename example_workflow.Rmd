@@ -16,7 +16,7 @@ library(kableExtra)
 
 # Introduction
 
-This is an example of the workflow a PEPR study site might use to add geomarkers to their data with [DeGAUSS](https://github.com/cole-brokamp/DeGAUSS). 
+This is an example of the workflow a PEPR study site might use to add geomarkers to their data with [DeGAUSS](https://degauss.org/). 
 
 In steps 2 through 6: 
 
@@ -25,7 +25,7 @@ In steps 2 through 6:
 
 # Step 0: Install Docker
 
-See the [Installing Docker](https://github.com/cole-brokamp/DeGAUSS/wiki/Installing-Docker) wiki.
+See the [Installing Docker](https://github.com/degauss-org/degauss-org.github.io/wiki/Installing-Docker) wiki.
 
  > <font size="3.5"> **_Note about Docker Settings:_** </font> <br> <font size="2.75"> After installing Docker, but before running containers, go to **Docker Settings > Advanced** and change **memory** to greater than 4000 MB (or 4 GiB) <br> <center> <img width=50% src="images/docker_settings_memory.PNG"> </center> <br> If you are using a Windows computer, also set **CPUs** to 1. <br> <center> <img width=50% src="images/docker_settings_cpu.png"> </center> Click **Apply** and wait for Docker to restart. </font>
 
@@ -47,9 +47,9 @@ my_adds_geo %>%
   kable_styling(full_width = FALSE, bootstrap_options = "striped")
 ```
 
-Refer to the DeGAUSS [geocoding wiki](https://github.com/cole-brokamp/DeGAUSS/wiki/Geocoding-with-DeGAUSS) for more information about the input file and address string formatting.
+Refer to the DeGAUSS [geocoding wiki](https://github.com/degauss-org/degauss-org.github.io/wiki/Geocoding-with-DeGAUSS) for more information about the input file and address string formatting.
 
-# Step 2: Geocoding and Deprivation Index
+# Step 2: Geocoding and Deprivation Index 
 
 Open a shell (i.e., terminal on Mac or CMD on Windows). We will use this shell for the rest of the steps in this example.
 
@@ -67,7 +67,7 @@ Replace `my_address_file.csv` with the name of the CSV file to be geocoded and r
 
 <br>
 
-> **_Note for Windows Users:_** <br> In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`. Refer to the DeGAUSS [Windows Troubleshooting](https://github.com/cole-brokamp/DeGAUSS/wiki/Microsoft-Windows-Problems-and-Workarounds#parallel-computing-on-windows) page for more information.
+> **_Note for Windows Users:_** <br> In this and all following docker calls in this example, replace `"$PWD"` with `"%cd%"`. Refer to the DeGAUSS [Windows Troubleshooting](https://github.com/degauss-org/degauss-org.github.io/wiki/Microsoft-Windows-Troubleshooting-and-Workarounds) page for more information.
 
 
 The **output file** is written to the same directory and in our example, will be called `my_address_file_geocoded.csv`.
